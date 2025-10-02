@@ -1,0 +1,5 @@
+/.idea
+/.gradle
+/docs/.cache
+/docs/site
+build

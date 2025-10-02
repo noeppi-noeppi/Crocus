@@ -1,0 +1,8 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    api libs.annotations // we need to annotations at runtime as well
+    api libs.glassfish.jaxb.xjc
+}

@@ -1,0 +1,7 @@
+dependencies {
+    classpath project(':lib:sesquiannual')
+}
+
+jar {
+    manifest.attributes('Crocus-Layer-Isolation': true)
+}

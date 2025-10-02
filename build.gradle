@@ -1,0 +1,100 @@
+plugins {
+    alias(libs.plugins.gmp) apply false
+}
+
+subprojects {
+    if (!subprojects.isEmpty()) return
+
+    apply plugin: 'java-library'
+    apply plugin: libs.plugins.gmp.get().pluginId
+    apply plugin: 'maven-publish'
+    apply plugin: 'idea'
+
+    java.toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+        vendor = JvmVendorSpec.ADOPTIUM
+    }
+
+    java.withSourcesJar()
+
+    idea.module.downloadSources = true
+
+    repositories {
+        mavenCentral()
+        maven { url = 'https://maven.tuxtown.eu/release' }
+    }
+
+    dependencies {
+        compileOnly libs.annotations
+        testCompileOnly libs.annotations
+        testImplementation libs.jupiter
+        testRuntimeOnly libs.jupiter.runtime
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+
+    afterEvaluate {
+        tasks.withType(Jar).configureEach {
+            from(rootProject.file('LICENSE')) {
+                into 'META-INF/'
+                duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+            }
+        }
+    }
+
+    if (!project.path.startsWith(':util:')) {
+        publishing {
+            publications {
+                mavenJava(MavenPublication) {
+                    from components.java
+                }
+            }
+
+            repositories {
+                maven {
+                    name 'tuxtown'
+                    url 'https://maven.tuxtown.eu/release'
+                    credentials(PasswordCredentials)
+                }
+            }
+        }
+    }
+
+    if (project.path.startsWith(':plugins:')) {
+        group = "${rootProject.group}.plugins"
+
+        var cpDependencies = configurations.register('classpath') { cf ->
+            cf.canBeResolved = false
+            cf.canBeConsumed = false
+        }
+        var cpElements = configurations.register('classpathElements') { cf ->
+            cf.canBeResolved = true
+            cf.canBeConsumed = false
+            cf.extendsFrom(cpDependencies.get())
+        }
+        configurations.named('implementation').configure { it.extendsFrom(cpDependencies.get()) }
+
+        dependencies {
+            api project(':core')
+        }
+
+        var pluginJarTask = tasks.register('pluginJar', Jar) { Jar task ->
+            archiveClassifier = 'plugin'
+            var jarTask = tasks.named('jar', Jar).get()
+            manifest.from(jarTask.manifest)
+            with(jarTask)
+            from(cpElements) {
+                into('META-INF/classpath')
+            }
+        }
+
+        project(':core').afterEvaluate {
+            project(':core').bootstrap.copy {
+                from pluginJarTask
+                into 'lib/plugins'
+            }
+        }
+    }
+}

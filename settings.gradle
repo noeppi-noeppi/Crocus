@@ -1,0 +1,21 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven { url = 'https://maven.tuxtown.eu/release' }
+    }
+}
+
+plugins {
+    id('org.gradle.toolchains.foojay-resolver-convention') version '1.0.0'
+}
+
+rootProject.name = 'Crocus'
+
+include ':core'
+include ':plugins:anniversary'
+include ':plugins:filter'
+include ':plugins:google'
+include ':plugins:ical'
+include ':plugins:frab'
+include ':lib:sesquiannual'
+include ':util:jaxb-nullity-plugin'

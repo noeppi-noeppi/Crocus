@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="schedule" type="schedule"/>
+
+    <xs:complexType name="schedule">
+        <xs:all>
+            <xs:element name="conference" type="conference"/>
+            <xs:element name="day" type="conference_day" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="conference">
+        <xs:all>
+            <xs:element name="acronym" type="xs:string"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="time_zone_name" type="timezone" minOccurs="0"/>
+            <xs:element name="base_url" type="uri" minOccurs="0"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="conference_day">
+        <xs:sequence>
+            <xs:element name="room" type="conference_room" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="date" type="local_date" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="conference_room">
+        <xs:sequence>
+            <xs:element name="event" type="conference_event" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="conference_event">
+        <xs:all>
+            <xs:element name="date" type="timestamp" minOccurs="0"/>
+            <xs:element name="start" type="local_time"/>
+            <xs:element name="duration" type="duration"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="subtitle" type="xs:string" minOccurs="0"/>
+            <xs:element name="type" type="xs:string" minOccurs="0"/>
+            <xs:element name="abstract" type="xs:string" minOccurs="0"/>
+            <xs:element name="description" type="xs:string" minOccurs="0"/>
+            <xs:element name="url" type="uri" minOccurs="0"/>
+            <xs:element name="persons" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="person" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="guid" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:simpleType name="local_date">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:simpleType name="local_time">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:simpleType name="timestamp">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:simpleType name="timezone">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:simpleType name="duration">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:simpleType name="uri">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+</xs:schema>

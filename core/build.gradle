@@ -1,0 +1,26 @@
+plugins {
+    alias(libs.plugins.bootstrap)
+}
+
+bootstrap {
+    applicationName = 'crocus'
+    entrypoint = 'crocus'
+}
+
+dependencies {
+    bootModules libs.launcher
+
+    api libs.annotations
+    implementation libs.joptsimple
+    implementation libs.groovy
+    implementation libs.gson
+}
+
+jar {
+    archiveBaseName = 'Crocus'
+}
+
+tasks.named('distTar', Tar) {
+    compression = Compression.GZIP
+    archiveExtension = 'tar.gz'
+}

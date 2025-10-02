@@ -1,0 +1,70 @@
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installing Crocus: getting-started/install.md
+      - Configuring Crocus: getting-started/configuration.md
+      - Running Crocus: getting-started/run.md
+      - Providing Secrets: getting-started/secrets.md
+  - Advanced Topics:
+      - Crocus Architecture: advanced/architecture.md
+      - Configuration Reference: advanced/configuration-format.md
+      - IO Mode: advanced/io-mode.md
+      - Sesquiannual (iCal library): advanced/sesquiannual.md
+  - Plugins:
+      - Core: plugins/core.md
+      - Anniversary: plugins/anniversary.md
+      - Filter: plugins/filter.md
+      - Frab: plugins/frab.md
+      - Google: plugins/google.md
+      - iCalendar: plugins/ical.md
+  - Plugin Development:
+      - Plugin Loading: development/plugin-loading.md
+      - Service Configuration: development/configuration.md
+      - Plugin Bundling: development/bundling.md
+
+docs_dir: pages
+site_name: Crocus Documentation
+site_url: https://noeppi-noeppi.github.io/Crocus
+repo_name: noeppi-noeppi/Crocus
+repo_url: https://github.com/noeppi-noeppi/Crocus
+use_directory_urls: false
+
+theme:
+  name: material
+  features:
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+markdown_extensions:
+  - codehilite:
+      noclasses: true
+      use_pygments: true
+      pygments_style: igor
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - markdown_grid_tables:
+      hard_linebreaks: false
+
+plugins:
+  - search
+  - privacy
+  - minify:
+      minify_html: true

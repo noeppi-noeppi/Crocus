@@ -1,0 +1,30 @@
+<jaxb:bindings xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
+               jaxb:version="3.0"
+               schemaLocation="schedule.xsd">
+    <jaxb:globalBindings>
+        <jaxb:javaType name="java.time.LocalDate"
+                       xmlType="local_date"
+                       parseMethod="eu.tuxtown.crocus.frab.bind.JavaDateTimeAdapter.parseDate"
+                       printMethod="eu.tuxtown.crocus.frab.bind.JavaDateTimeAdapter.printDate"/>
+        <jaxb:javaType name="java.time.LocalTime"
+                       xmlType="local_time"
+                       parseMethod="eu.tuxtown.crocus.frab.bind.JavaDateTimeAdapter.parseTime"
+                       printMethod="eu.tuxtown.crocus.frab.bind.JavaDateTimeAdapter.printTime"/>
+        <jaxb:javaType name="java.time.OffsetDateTime"
+                       xmlType="timestamp"
+                       parseMethod="eu.tuxtown.crocus.frab.bind.JavaDateTimeAdapter.parseTimestamp"
+                       printMethod="eu.tuxtown.crocus.frab.bind.JavaDateTimeAdapter.printTimestamp"/>
+        <jaxb:javaType name="java.time.ZoneId"
+                       xmlType="timezone"
+                       parseMethod="eu.tuxtown.crocus.frab.bind.JavaDateTimeAdapter.parseTimeZone"
+                       printMethod="eu.tuxtown.crocus.frab.bind.JavaDateTimeAdapter.printTimeZone"/>
+        <jaxb:javaType name="java.time.Duration"
+                       xmlType="duration"
+                       parseMethod="eu.tuxtown.crocus.frab.bind.JavaDateTimeAdapter.parseDuration"
+                       printMethod="eu.tuxtown.crocus.frab.bind.JavaDateTimeAdapter.printDuration"/>
+        <jaxb:javaType name="java.net.URI"
+                       xmlType="uri"
+                       parseMethod="eu.tuxtown.crocus.frab.bind.JavaNetAdapter.parseURI"
+                       printMethod="eu.tuxtown.crocus.frab.bind.JavaNetAdapter.printURI"/>
+    </jaxb:globalBindings>
+</jaxb:bindings>

@@ -1,0 +1,19 @@
+plugins {
+    alias(libs.plugins.xjc)
+}
+
+dependencies {
+    classpath libs.jakarta.xml.bind
+    classpath libs.jakarta.activation
+    classpath libs.glassfish.jaxb.runtime
+    xjcPlugins project(':util:jaxb-nullity-plugin')
+}
+
+xjc {
+    xjcVersion.set(libs.versions.glassfish.jaxb)
+    xsdDir.set(file('src/main/xsd'))
+    bindingFiles.from(fileTree('src/main/xsd') { include('*.xjb') })
+    defaultPackage = 'eu.tuxtown.crocus.frab.model'
+    addCompilationDependencies = false
+    options.addAll('-nv', '-Xcrocus-nullity')
+}

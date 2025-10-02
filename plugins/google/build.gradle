@@ -1,0 +1,11 @@
+dependencies {
+    classpath libs.google.client.api
+    classpath libs.google.client.oauth
+    classpath libs.google.client.oauth.jetty
+    classpath libs.google.apis.calendar
+    classpath libs.google.apis.people
+}
+
+jar {
+    manifest.attributes('Crocus-Layer-Isolation': true)
+}
