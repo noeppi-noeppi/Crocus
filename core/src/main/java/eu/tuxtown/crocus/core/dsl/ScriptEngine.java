@@ -39,7 +39,7 @@ public class ScriptEngine {
 
     public static synchronized void init(ModuleSystem system, ModuleLayer.Controller pluginController) {
         if (!initialised) {
-            // groovy uses heavy reflection on everything an that is okay
+            // groovy uses heavy reflection on everything and that is okay
             Module groovyModule = GroovySystem.class.getModule();
             for (Module bootstrapModule : system.layer().modules()) {
                 for (String pkg : bootstrapModule.getPackages()) {
