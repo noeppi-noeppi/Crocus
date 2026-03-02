@@ -66,7 +66,7 @@ public class JavaDateTimeAdapter {
         long seconds = duration.toSeconds();
         long nano = duration.getNano();
         sb.append(String.format("%02d:%02d", seconds / 3600, (seconds / 60) % 60));
-        if (nano != 0 || seconds % 60 != 0) sb.append(String.format("%02d", seconds % 60));
+        if (nano != 0 || seconds % 60 != 0) sb.append(String.format(":%02d", seconds % 60));
         if (nano != 0) sb.append(String.format(".%9d", nano));
         return sb.toString();
     }
