@@ -23,5 +23,5 @@ cd Crocus
 ./gradlew build
 ```
 You'll need a suitable Java Development Kit such as
- [Eclipse Temurin](https://adoptium.net/de/temurin/releases?version=21) installed.
+ [Eclipse Temurin](https://adoptium.net/de/temurin/releases?version=25) installed.
 After Crocus has been built, you'll find the binary distributions in `core/build/distributions`

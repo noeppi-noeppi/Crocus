@@ -7,7 +7,7 @@ A plugin can provide one or multiple *Services* which extends Crocus' functional
 There are four different kinds of services that plugins can provide:
 
 - *Calendar Types* provide a certain type of calendar (event sink).
-  Calendars are responsible for synchronizing events to some kind of external sink.
+  Calendars are responsible for synchronising events to some kind of external sink.
   An example for a calendar type is *Google Calendar*  provided by the [Google Plugin](../plugins/google.md).
 - *Event Source Types* provide a certain type of event source.
   Event sources are responsible for fetching events from some kind of external source.
