@@ -57,14 +57,14 @@ public interface Resource {
     }
 
     /**
-     * Creates a resource tha treads from the given path.
+     * Creates a resource that reads from the given path.
      */
     static Resource of(Path path) {
         return new PathResource(path);
     }
 
     /**
-     * Creates a resource tha treads from the given URL.
+     * Creates a resource that reads from the given URL.
      */
     static Resource of(URL url) {
         return UrlResource.of(url);
