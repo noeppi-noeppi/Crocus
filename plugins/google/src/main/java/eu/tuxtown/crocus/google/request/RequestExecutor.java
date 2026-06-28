@@ -123,7 +123,7 @@ public class RequestExecutor {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
-            //
+            Thread.currentThread().interrupt();
         }
     }
 

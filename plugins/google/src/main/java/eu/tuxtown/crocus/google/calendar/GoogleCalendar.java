@@ -2,7 +2,7 @@ package eu.tuxtown.crocus.google.calendar;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Event.Reminders;
@@ -36,7 +36,7 @@ public class GoogleCalendar implements eu.tuxtown.crocus.api.calendar.Calendar {
         try {
             GoogleClientSecrets secrets = GoogleClientSecrets.load(GsonFactory.getDefaultInstance(), new StringReader(cfg.getAuth()));
             Credential credential = GoogleAuth.authorize(secrets);
-            this.calendar = new Calendar.Builder(GoogleNetHttpTransport.newTrustedTransport(), GsonFactory.getDefaultInstance(), credential)
+            this.calendar = new Calendar.Builder(new NetHttpTransport(), GsonFactory.getDefaultInstance(), credential)
                     .setApplicationName("Crocus")
                     .build();
             this.executor = RequestExecutor.getDefault(this.calendar);
@@ -159,7 +159,7 @@ public class GoogleCalendar implements eu.tuxtown.crocus.api.calendar.Calendar {
             case Event.EventTime.OpenEnd time -> {
                 googleEvent.setStart(getTime(time.start(), zone, zoneOverride != null));
                 googleEvent.setEnd(getTime(time.start(), zone, zoneOverride != null));
-                googleEvent.setEndTimeUnspecified(true);
+                googleEvent.setEndTimeUnspecified(false); // Not supported for regular events
             }
             case Event.EventTime.Timed time -> {
                 googleEvent.setStart(getTime(time.start(), zone, zoneOverride != null));
