@@ -106,7 +106,7 @@ public final class Event implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof Event event)) return false;
         if (!Objects.equals(this.id, event.id) || !Objects.equals(this.name, event.name)

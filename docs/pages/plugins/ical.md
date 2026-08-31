@@ -10,33 +10,32 @@ Its plugin id is `tuxtown.crocus.ical`.
 - `ical_color`: The value of the `COLOR` property if present.
 - `ical_classification`: The value of the `CLASSIFICATION` property if present.
 
-## The `ìcal` event source
+## The `ical` event source
 
 The ical event source loads events from an iCalendar resource.
 As iCalendar supports recurring events and Crocus does not, recurring events are converted to a series of non-recurring
  events.
 It has the following properties:
 
-- `source` is a `Resource` from where the iCal calendar shall be loaded.
+- `source` is a `Resource` from which the iCal calendar will be loaded.
 - `timezone` is the default time zone if the iCalendar does not define time zone information.
   It defaults to the system timezone.
-- `charset` defines the character encoding in which the XML schedule is encoded.
+- `charset` defines the character encoding in which the iCal calendar is encoded.
   The default is UTF-8.
-- `repeatFor` is a *temporal amount* (such as `'2 years'`) that defines, for how long event repetitions should be
+- `repeatFor` is a *temporal amount* (such as `'2 years'`) that defines for how long event repetitions should be
    created, measured from the start of the first event occurrence.
-  Crocus calculated two timespans for event repetition, one using `repeatFor` and another one using `repeatFromNow`.
+  Crocus calculates two timespans for event repetition, one using `repeatFor` and another one using `repeatFromNow`.
   The longer timespan will be used to calculate event repetitions.
-- `repeatFromNow` is a *temporal amount* (such as `'2 years'`) that defines, for how long event repetitions should at
+- `repeatFromNow` is a *temporal amount* (such as `'2 years'`) that defines for how long event repetitions should at
    least be created, measured from now on.
-  Crocus calculated two timespans for event repetition, one using `repeatFor` and another one using `repeatFromNow`.
+  Crocus calculates two timespans for event repetition, one using `repeatFor` and another one using `repeatFromNow`.
   The longer timespan will be used to calculate event repetitions.
 - `sequences` defines how to treat `SEQUENCE` numbers in iCal events.
   See below for further information.
 
 ### Sequence behaviour
 
-Many iCal implementations implement the behaviour of `SEQUENCE` number in a different way the iCalendar standard
- mandates.
+Many iCal implementations handle `SEQUENCE` numbers in a different way than the iCalendar standard mandates.
 Therefore, Crocus provides four strategies for treating `SEQUENCE` numbers:
 
 - `uniform`:

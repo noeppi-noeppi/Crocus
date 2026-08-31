@@ -75,9 +75,9 @@ public class CalendarUpdater {
             if (!successful.get()) {
                 try {
                     trySaveFailureState(null, path, data, updatingIdMap);
-                    System.err.println("Interrupted while updating calendar " + calendar.id() + ". Failure state written.");
+                    Crocus.error("Interrupted while updating calendar " + calendar.id() + ". Failure state written.");
                 } catch (Exception e) {
-                    System.err.println("Interrupted while updating calendar " + calendar.id() + ". Failure state could not be written. Calendar is probably broken.");
+                    Crocus.error("Interrupted while updating calendar " + calendar.id() + ". Failure state could not be written. Calendar is probably broken.");
                 }
             }
         });

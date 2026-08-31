@@ -11,7 +11,7 @@ The behaviour can be changed by passing some of the supported options:
 | <span style="white-space:nowrap"> | Shows a short summary of all available options.                                  |
 | `--help`</span>                   |                                                                                  |
 +-----------------------------------+----------------------------------------------------------------------------------+
-| <span style="white-space:nowrap"> | Sets the working directory, where Crocus looks for the configuration file and    |
+| <span style="white-space:nowrap"> | Sets the working directory where Crocus looks for the configuration file and     |
 | `--path <path>`</span>            | stores its data.                                                                 |
 +-----------------------------------+----------------------------------------------------------------------------------+
 | <span style="white-space:nowrap"> | Produces more verbose output.                                                    |
@@ -23,7 +23,7 @@ The behaviour can be changed by passing some of the supported options:
 | <span style="white-space:nowrap"> | Writes the events of each queried event source to a json file before pushing the |
 | `--dump`</span>                   | events into the calendars.                                                       |
 +-----------------------------------+----------------------------------------------------------------------------------+
-| <span style="white-space:nowrap"> | Do not attempt to perform an incremental synchronization. Instead, delete all    |
+| <span style="white-space:nowrap"> | Does not attempt to perform an incremental synchronization. Instead, deletes all |
 | `--no-incremental`</span>         | events from each calendar before adding new ones. This is mainly useful, if you  |
 |                                   | lost the saved state from the previous run.                                      |
 +-----------------------------------+----------------------------------------------------------------------------------+
@@ -41,17 +41,17 @@ This section gives an overview of the files and directories Crocus creates or ex
 | <span style="white-space:nowrap"> | Directory for additional plugins that are loaded at runtime.                     |
 | `plugins/`</span>                 |                                                                                  |
 +-----------------------------------+----------------------------------------------------------------------------------+
-| <span style="white-space:nowrap"> | [properties file](https://en.wikipedia.org/wiki/.properties) that is read by the |
-| `secrets.properties`</span>       | [secret loading](./secrets.md) mechanism if it exists.                           |
+| <span style="white-space:nowrap"> | A [properties file](https://en.wikipedia.org/wiki/.properties) that is read by   |
+| `secrets.properties`</span>       | the [secret loading](./secrets.md) mechanism if it exists.                       |
 +-----------------------------------+----------------------------------------------------------------------------------+
-| <span style="white-space:nowrap"> | Directory, whose contents are read by the [secret loading](./secrets.md)         |
+| <span style="white-space:nowrap"> | Directory whose contents are read by the [secret loading](./secrets.md)          |
 | `secrets/`</span>                 | mechanism if it exists.                                                          |
 +-----------------------------------+----------------------------------------------------------------------------------+
 | <span style="white-space:nowrap"> | Contains the last known state of all calendars defined in the system             |
 | `calendars/`</span>               | configuration in a format internal to Crocus. These files are required for       |
 |                                   | incremental synchronization.                                                     |
 +-----------------------------------+----------------------------------------------------------------------------------+
-| <span style="white-space:nowrap"> | Directory where event dumps are written to if the `--dump` command line option   |
+| <span style="white-space:nowrap"> | Directory to which event dumps are written if the `--dump` command-line option   |
 | `event-dump/`</span>              | is given.                                                                        |
 +-----------------------------------+----------------------------------------------------------------------------------+
 | <span style="white-space:nowrap"> | Contains data directories for plugins. The data stored here depends on the       |

@@ -1,6 +1,6 @@
 # The Anniversary Plugin
 
-The anniversary plugin allows to define annually repeating events in a flexible DSL.
+The anniversary plugin allows defining annually repeating events in a flexible DSL.
 Its plugin id is `tuxtown.crocus.anniversary`.
 
 ## The `anniversary` event source
@@ -44,10 +44,10 @@ There are three ways to create an anniversary date definition:
 | `always()`</span>                 | considered period of time.                                                       |
 +-----------------------------------+----------------------------------------------------------------------------------+
 | <span style="white-space:nowrap"> | Yields an anniversary date definition that evaluates the provided closure for    |
-| `only{ ... }`</span>              | every day in the considered period of time and select the dates for which the    |
+| `only{ ... }`</span>              | every day in the considered period of time and selects the dates for which the   |
 |                                   | closure returns `true`.                                                          |
 |                                   | For example `only { it.dayOfMonth + it.monthValue == 7 }` selects all dates,     |
-|                                   | where the *month of day* plus the *month number* equal seven.                    |
+|                                   | where the *day of month* plus the *month number* equal seven.                    |
 +-----------------------------------+----------------------------------------------------------------------------------+
 | <span style="white-space:nowrap"> | Yields an anniversary date definition based on a filter.                         |
 | `on(...)`</span> or               | See [below](#anniversary-date-filters).                                          |
@@ -74,7 +74,7 @@ There are a variety of modifier methods that can be called on an anniversary dat
 +-----------------------------------+----------------------------------------------------------------------------------+
 | <span style="white-space:nowrap"> | Shifts all dates selected by `dateDef` by the given temporal amount into the     |
 | `dateDef - temporalAmount`</span> | past.                                                                            |
-|                                   | This works analogous to `dateDef + temporalAmount`.                              |
+|                                   | This works analogously to `dateDef + temporalAmount`.                            |
 +-----------------------------------+----------------------------------------------------------------------------------+
 | <span style="white-space:nowrap"> | Adjusts all dates selected by `dateDef` to point to the first day of the month   |
 | `dateDef.firstDayOfMonth()`       | in which the original selected date lies.                                        |
@@ -91,10 +91,10 @@ There are a variety of modifier methods that can be called on an anniversary dat
 +-----------------------------------+----------------------------------------------------------------------------------+
 | <span style="white-space:nowrap"> | Adjusts all dates selected by `dateDef` to point to the first day of the year    |
 | `dateDef.firstDayOfNextYear()`    | that follows the year in which the original selected date lies.                  |
-| </span>                           | This is equivalent to `dateDef.lastDayOfYear() + '1 day'`                        |
+| </span>                           | This is equivalent to `dateDef.lastDayOfYear() + '1 day'`.                       |
 +-----------------------------------+----------------------------------------------------------------------------------+
 | <span style="white-space:nowrap"> | Adjusts all dates selected by `dateDef` at least zero and at most six days into  |
-| `dateDef.next(dow)`</span>        | the future, such that the newly selected day falls on the given day of week.     |
+| `dateDef.first(dow)`</span>       | the future, such that the newly selected day falls on the given day of week.     |
 |                                   | A day of week can be given as a string containing its full name (`thursday`) or  |
 |                                   | its three-letter abbreviation (`thu`).                                           |
 +-----------------------------------+----------------------------------------------------------------------------------+
@@ -116,7 +116,7 @@ There are a variety of modifier methods that can be called on an anniversary dat
 +-----------------------------------+----------------------------------------------------------------------------------+
 | <span style="white-space:nowrap"> | Applies an anniversary date filter to `dateDef`.                                 |
 | `dateDef.on(...)`</span> or       | The result is a new anniversary date definition that considers all days selected |
-| <span style="white-space:nowrap"> | by `dateDef` and only retains the days, that match the provided filter.          |
+| <span style="white-space:nowrap"> | by `dateDef` and only retains the days that match the provided filter.           |
 | `dateDef.in(...)`</span>          | See [below](#anniversary-date-filters).                                          |
 +-----------------------------------+----------------------------------------------------------------------------------+
 
@@ -140,29 +140,29 @@ All possible arguments to these functions are described in the table below:
 | <span style="white-space:nowrap"> | Selects all days in the provided *month*.                                        |
 | `on(month)`</span>                | The *month* can be given as a string (`'september'` or `'sep'`).                 |
 +-----------------------------------+----------------------------------------------------------------------------------+
-| <span style="white-space:nowrap"> | Select all days that fall on the provided *day of the week*.                     |
+| <span style="white-space:nowrap"> | Selects all days that fall on the provided *day of the week*.                    |
 | `on(dow)`</span>                  | The *day of the week* can be given as a string (`'thursday'` or `'thu'`).        |
 +-----------------------------------+----------------------------------------------------------------------------------+
 | <span style="white-space:nowrap"> | Selects all days that fall in the provided *calendar week*.                      |
 | `on(calendarWeek)`</span>         | This uses *ISO 8601* calendar week, where the first calendar week in a year is   |
-|                                   | the week that contains the first thursday of that year.                          |
+|                                   | the week that contains the first Thursday of that year.                          |
 |                                   | The *calendar week* can be given as a string of the form `'cw##'` where `##`     |
 |                                   | shall be replaced by the calendar week number.                                   |
 +-----------------------------------+----------------------------------------------------------------------------------+
-| <span style="white-space:nowrap"> | Selects easter sundays in the gregorian calendar.                                |
+| <span style="white-space:nowrap"> | Selects Easter Sundays in the Gregorian calendar.                                |
 | `on('easter')`</span>             |                                                                                  |
 +-----------------------------------+----------------------------------------------------------------------------------+
 
 ### Examples
 
-This section provides a few examples for anniversary configurations.
+This section provides a few examples of anniversary configurations.
 
 ```groovy
 day('Today is a day') {
     always()
 }
 
-day('New years eve') {
+day("New Year's eve") {
     on(31, 'december')
 }
 
@@ -178,7 +178,7 @@ day('Pentecost') {
     on('easter') + '49 days'
 }
 
-day('Mothers Day in the US') {
+day("Mother's Day in the US") {
     on(1, 'may').next('sunday') + '1 week'
 }
 

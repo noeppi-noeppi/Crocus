@@ -28,16 +28,16 @@ public class SimpleFilterConfig {
     private final List<SimpleFilter.DuringPeriod> during;
     private final List<SimpleFilter.DuringPeriod> outside;
     private ZoneId timezone;
-    private final Map<Attribute<?>, Predicate<Object>> attributes;
+    private final Map<Attribute<?>, Predicate<@Nullable Object>> attributes;
     private Predicate<Event> event;
 
     public SimpleFilterConfig(SimpleFilterType type) {
         this.type = type;
         this.when = new ArrayList<>();
-        this.name = str -> true;
-        this.description = str -> true;
-        this.location = str -> true;
-        this.url = url -> true;
+        this.name = _ -> true;
+        this.description = _ -> true;
+        this.location = _ -> true;
+        this.url = _ -> true;
         this.after = null;
         this.before = null;
         this.during = new ArrayList<>();
@@ -96,7 +96,7 @@ public class SimpleFilterConfig {
     }
 
     public void attribute(Attribute<?> attribute, Predicate<@Nullable Object> test) {
-        this.attributes.compute(attribute, (k, oldFilter) -> oldFilter == null ? test : oldFilter.and(test));
+        this.attributes.compute(attribute, (_, oldFilter) -> oldFilter == null ? test : oldFilter.and(test));
     }
 
     public void event(Predicate<Event> event) {

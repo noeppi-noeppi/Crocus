@@ -7,7 +7,7 @@ Crocus can then be executed by calling the `bin/crocus` script.
 Crocus requires at least Java 25.
 For Crocus to find a Java installation, either the `JAVA_HOME` environment variable must point to the location of a Java
  installation or the `java` command must be found on the `PATH`.
-On Unix systems, its is possible to configure the java installation used by Crocus in a file named `conf/default` in the
+On Unix systems, it is possible to configure the Java installation used by Crocus in a file named `conf/default` in the
  extracted distribution like this:
 
 ```shell title="conf/default"
@@ -24,4 +24,4 @@ cd Crocus
 ```
 You'll need a suitable Java Development Kit such as
  [Eclipse Temurin](https://adoptium.net/de/temurin/releases?version=25) installed.
-After Crocus has been built, you'll find the binary distributions in `core/build/distributions`
+After Crocus has been built, you'll find the binary distributions in `core/build/distributions`.

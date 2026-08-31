@@ -27,7 +27,7 @@ public interface Calendar {
 
     /**
      * Deletes all events from the calendar. This method is used if a full non-incremental update is requested.
-     * For example after outside edits brought the calender and Crocus cache out of sync. This method may not
+     * For example after outside edits brought the calendar and Crocus cache out of sync. This method may not
      * leave any events in the calendar. If some events can't be deleted, this method <b>must</b> throw an exception.
      *
      * @return The number of deleted events if known, {@link OptionalInt#empty()} otherwise.

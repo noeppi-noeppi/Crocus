@@ -2,19 +2,19 @@
 
 Crocus uses a plugin-based architecture.
 There is the *Crocus Core*, which provides an interface for *Plugins*.
-A plugin can provide one or multiple *Services* which extends Crocus' functionality.
+A plugin can provide one or multiple *Services* which extend Crocus' functionality.
 
 There are four different kinds of services that plugins can provide:
 
 - *Calendar Types* provide a certain type of calendar (event sink).
   Calendars are responsible for synchronising events to some kind of external sink.
-  An example for a calendar type is *Google Calendar*  provided by the [Google Plugin](../plugins/google.md).
+  An example of a calendar type is *Google Calendar*  provided by the [Google Plugin](../plugins/google.md).
 - *Event Source Types* provide a certain type of event source.
   Event sources are responsible for fetching events from some kind of external source.
-  An example for an event source type is *iCalendar* provided by the [iCalendar Plugin](../plugins/ical.md).
+  An example of an event source type is *iCalendar* provided by the [iCalendar Plugin](../plugins/ical.md).
 - *Event Filter Types* provide a certain type of event filter.
   Event filters are responsible for filtering and modifying events after they have been retrieved from an event source.
-  An example for an event filter type are *Simple Filters* provided by the [Filter Plugin](../plugins/filter.md).
+  An example of an event filter type is the *Simple Filter* provided by the [Filter Plugin](../plugins/filter.md).
 - *Attribute Providers* are used to register additional [attributes](#attributes) to store additional data on events.
 
 ## Events
@@ -22,7 +22,7 @@ There are four different kinds of services that plugins can provide:
 The central type object that Crocus deals with is the event.
 Crocus models an event in a rather simple way, using only these attributes:
 
-- An identifier that must be unique among all events from the same event source.
+- An identifier that must be unique among all events from the same event source
 - A name of the event
 - An optional description of the event
 - An optional location of the event
@@ -41,8 +41,8 @@ Recurring events are probably the feature that causes the most complexity and in
 Therefore, Crocus does not support recurrence at all.
 Event sources that fetch events from a source supporting recurrence must expand these into individual event instances
  and pass them to Crocus separately.
-Calendars that push events to a sink supporting recurrence may detect the expanded recurrence and collapse them back
- into a single event.
+Calendars that push events to a sink supporting recurrence may detect the expanded recurrence and collapse it back  into
+ a single event.
 Consequently, Crocus cannot fully support events repeating infinitely and must cut repetition off at some point in time.
 
 The date and time of an event is always one of the following types:
@@ -79,32 +79,25 @@ Event filters cannot modify the unique identifiers of events passing through the
 
 ## Service Interface
 
-This section documents, what logic event sources, filters and calendars need to provide and what logic is performed by
+This section documents what logic event sources, filters and calendars need to provide and what logic is performed by
  the Crocus core.
 
 ### Event Source
-
-Event sources only have a single function, which is fetching the underlying source and returning a list of events for
- further processing by crocus.
-Crocus always expects an event source to return all events from the underlying source.
-However, if the underlying source support incremental requests, where it only sends changes that were made since the
- last run, the event source service may store the retrieved events in the `plugin-data` folder and then use incremental
- fetch to fetch changes and build a complete event list from these.
 
 The only function of event sources is to fetch the underlying source and return a list of events for further processing
  by Crocus.
 Crocus always expects an event source to return all events from the underlying source.
 However, if the underlying source supports incremental requests and only sends changes made since the last run, the
- event source service can make of that and store the retrieved events in the `plugin-data` folder.
+ event source service can make use of that and store the retrieved events in the `plugin-data` folder.
 On the next run, it can then use incremental fetch to retrieve the changes and compile a full list of events.
 
 ### Event Filters
 
 Event filters also only have a single function.
 They retrieve one event after another.
-For each event, they may return it unchanged, return a changed event return no event at all, in which case the event is
- dropped.
-Filters should not keep internal state as it is not specified, in which order they will receive the events retrieved
+For each event, they may return it unchanged, return a changed event, or return no event at all, in which case the event
+ is dropped.
+Filters should not keep internal state as it is not specified in which order they will receive the events retrieved
  from an event source.
 
 ### Calendars

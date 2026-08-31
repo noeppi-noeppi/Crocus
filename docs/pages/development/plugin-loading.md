@@ -1,14 +1,15 @@
 # Plugin Loading
 
-This page explains the plugin loading process and gives an introduction on how to write custom plugins.
+This page explains the plugin loading process and gives an introduction to writing custom plugins.
 
-When Crocus starts, it loads the bundled plugins documented under in the [Plugins section](../plugins/core.md) as well
- as all plugins from the `plugins` directory in the Crocus working directory.
-A plugin is a regular *Jar*-file that is a named, non-automatic module (i.e. it provides a `module-info.class`).
+When Crocus starts, it loads the bundled plugins documented in the [Plugins section](../plugins/core.md) as well as all
+ plugins from the `plugins` directory in the Crocus working directory.
+A plugin is a regular *Jar*-file that is a named, non-automatic module (i.e., it provides a `module-info.class`).
 The module name becomes the plugin identifier.
-Plugins can bundle additional dependencies, see the [plugin bundling](./bundling.md) page for details.
+Plugins can bundle additional dependencies.
+See the [plugin bundling](./bundling.md) page for details.
 
-Plugins can extend Crocus by providing services using the regular java service-loader mechanism.
+Plugins can extend Crocus by providing services using the regular Java service-loader mechanism.
 The relevant service interfaces are:
 
 - `eu.tuxtown.crocus.api.service.CalendarType` for [calendar types](#calendar-types)
@@ -16,7 +17,7 @@ The relevant service interfaces are:
 - `eu.tuxtown.crocus.api.service.EventFilterType` for [event filter types](#event-filter-types)
 - `eu.tuxtown.crocus.api.service.AttributeProvider` for [attribute providers](#attribute-providers)
 
-Each of these service provider interfaces is explained in a relevant section below.
+Each of these service provider interfaces is explained in its corresponding section below.
 
 ## Calendar Types
 
@@ -38,6 +39,6 @@ An event filter type must have a name that is unique among all event filter type
 
 ## Attribute Providers
 
-Attribute providers define a single `registerAttributes` method that receives an attribute registry.
+An attribute provider defines a single `registerAttributes` method that receives an attribute registry.
 It can then register attributes that have been created using the static `Attribute.create` methods.
 Attribute names must be unique among all loaded plugins.

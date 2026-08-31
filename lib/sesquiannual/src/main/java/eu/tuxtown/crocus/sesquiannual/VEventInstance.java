@@ -34,7 +34,7 @@ public record VEventInstance(String id, CalendarQuery query, VEvent event, ICalD
     }
 
     /**
-     * Gets the end date of this {@link VEventInstance event instance} if available..
+     * Gets the end date of this {@link VEventInstance event instance} if available.
      */
     public Optional<ICalDate> endDate() {
         return this.query.duration(this.event)

@@ -109,7 +109,7 @@ public final class VEventGroup {
                     replacements.put(nominalStartDate, List.of(replacement));
                 }
             } else {
-                List<VEvent> list = replacements.computeIfAbsent(nominalStartDate, k -> new ArrayList<>());
+                List<VEvent> list = replacements.computeIfAbsent(nominalStartDate, _ -> new ArrayList<>());
                 list.add(replacement);
                 if (list.size() >= 2) for (VEvent ambiguousEvent : list) {
                     String code = String.format("%08x", ambiguousEvent.hashCode()) + "+" + Base64.getUrlEncoder().encodeToString(this.query.summary(ambiguousEvent).getBytes(StandardCharsets.UTF_8));
@@ -165,7 +165,7 @@ public final class VEventGroup {
 
         Stream<VEventInstance> finalStream = StreamHelper.mergeOrderedStreams(allStreams, TimeHelper.CHRONOLOGICAL);
         if (recurrenceStart.isPresent()) {
-            // If THISANDFUTURE replacements were used, the final stream may contains events before recurrenceStart. Filter them out.
+            // If THISANDFUTURE replacements were used, the final stream may contain events before recurrenceStart. Filter them out.
             return finalStream.filter(instance -> !recurrenceStart.get().isAfter(TimeHelper.toInstant(instance.startDate(), this.query.timezone(instance.event()), false)));
         } else {
             return finalStream;
@@ -218,7 +218,7 @@ public final class VEventGroup {
             Map<Optional<ICalDate>, List<VEvent>> eventIsolationMap = new HashMap<>();
             for (VEvent event : this.events()) {
                 Optional<ICalDate> key = Optional.ofNullable(event.getRecurrenceId()).map(rid -> Objects.requireNonNull(rid.getValue()));
-                eventIsolationMap.computeIfAbsent(key, k -> new ArrayList<>()).add(event);
+                eventIsolationMap.computeIfAbsent(key, _ -> new ArrayList<>()).add(event);
             }
             Optional<VEvent> mainEvent = eventIsolationMap.getOrDefault(Optional.<ICalDate>empty(), List.of()).stream().max(TimeHelper.SEQUENCE_ORDER);
             List<VEvent> replacementEvents = eventIsolationMap.entrySet().stream()

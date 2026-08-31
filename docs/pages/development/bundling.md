@@ -3,7 +3,7 @@
 Many plugins require additional libraries to operate.
 Therefore, plugins can bundle additional dependencies.
 When Crocus loads a plugin, it looks for a directory named `META-INF/classpath` inside the plugin *Jar*-file.
-Every *Jar*-file contained in there is loaded as a module to plugin module layer.
+Every *Jar*-file contained in there is loaded as a module into the plugin module layer.
 
 The dependencies of a plugin get a changed module name at runtime to not interfere with dependencies provided by other
  plugins.
@@ -16,22 +16,22 @@ Such a dependency is expressed by a `requires` directive in the plugins module d
 
 ## Layer Isolation
 
-The standard approach of remapping module module names of bundles *Jar*-files is not sufficient for automatic modules.
+The standard approach of remapping module names of bundled *Jar*-files is not sufficient for automatic modules.
 Automatic modules always read every other module and would therefore interfere with the dependencies provided by other
  plugins.
-To circumvent this, Crocus can load all dependencies bundles with a plugin into a separate module layer that then
+To circumvent this, Crocus can load all dependencies bundled with a plugin into a separate module layer that then
  becomes a parent layer of the plugin layer.
 This has the benefit of limiting automatic modules to a single plugin.
-However, it also comes with a disadvantage: Dependencies bundled with that plugin can't depend on other plugins any
+However, it also comes with a disadvantage: dependencies bundled with that plugin can't depend on other plugins any
  more.
 
-Layer isolation can be enabled for a plugin by setting an attribut in the plugins `MANIFEST.MF`:
+Layer isolation can be enabled for a plugin by setting an attribute in the plugin's `MANIFEST.MF`:
 ```manifest
 Crocus-Layer-Isolation: true
 ```
-In general, its advised to only enable layer isolation if there are *Jar*-files without an explicit module descriptor
- in `MMETA-INF/classpath`.
-In that case it is also *required* to enabled layer isolation as Crocus refuses to load automatic modules without it.
+In general, it's advised to only enable layer isolation if there are *Jar*-files without an explicit module descriptor
+ in `META-INF/classpath`.
+In that case it is also *required* to enable layer isolation as Crocus refuses to load automatic modules without it.
 
 ## Gradle Buildscript Example
 
@@ -68,8 +68,8 @@ tasks.named('jar', Jar).configure {
 ```
 
 1. All dependencies added via `classpath` are bundled.
-   Dependencies that should not be bundled, should use `api` instead.
-   This for example includes the Crocus core or additional plugins that this plugin depends on.
+   Dependencies that should not be bundled should use `api` instead.
+   This, for example, includes the Crocus core or additional plugins that this plugin depends on.
 2. Uncommenting the following line adds the `Crocus-Layer-Isolation` attribute to the jar manifest and therefore enables
     [layer isolation](#layer-isolation).
    This is required when bundling automatic modules.

@@ -5,6 +5,7 @@ import bootstrap.api.ModuleSystem;
 import bootstrap.jar.*;
 import bootstrap.jar.classloading.ClassTransformer;
 import bootstrap.jar.classloading.ModuleLoaderPool;
+import eu.tuxtown.crocus.api.Crocus;
 
 import java.io.IOException;
 import java.lang.module.Configuration;
@@ -22,9 +23,8 @@ public class PluginLoader {
 
     private static final Attributes.Name CROCUS_LAYER_ISOLATION = new Attributes.Name("Crocus-Layer-Isolation");
 
-    // Crocus.info can't be used here as the runtimes does not yet exist.
     public static ModuleLoaderPool.Controller loadPlugins(ModuleSystem system, Path runPath) {
-        System.out.println("Loading plugins");
+        Crocus.info("Loading plugins");
         List<Path> pluginFiles = new ArrayList<>();
         try {
             List<Path> pluginDirs = new ArrayList<>(2);

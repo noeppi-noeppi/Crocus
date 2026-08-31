@@ -4,6 +4,7 @@ import eu.tuxtown.crocus.api.attribute.Attribute;
 import eu.tuxtown.crocus.core.loader.Services;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.PrintStream;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
@@ -11,6 +12,10 @@ import java.util.concurrent.atomic.AtomicReference;
 public class CrocusRuntime {
 
     private static final AtomicReference<CrocusRuntime> instance = new AtomicReference<>(null);
+
+    public static @Nullable CrocusRuntime maybe() {
+        return instance.get();
+    }
 
     public static CrocusRuntime get() {
         CrocusRuntime rt = instance.get();
@@ -65,15 +70,15 @@ public class CrocusRuntime {
         return this.services == null ? Services.EMPTY : this.services;
     }
 
-    public void log(String message, boolean debug) {
-        if (debug && !this.verbose) return;
+    public void log(String message, boolean error) {
+        PrintStream stream = error ? System.err : System.out;
         String indent = this.logLayer <= 0 ? "" : "  ".repeat(this.logLayer - 1) + "- ";
-        System.out.println(indent + message);
+        stream.println(indent + message);
     }
 
-    public void logWithCaller(@Nullable Class<?> caller, String message, boolean debug) {
+    public void logWithCaller(@Nullable Class<?> caller, String message, boolean error) {
         String moduleName = (caller == null || !caller.getModule().isNamed()) ? "<unknown>" : caller.getModule().getName();
-        this.log(moduleName + ": " + message, debug);
+        this.log(moduleName + ": " + message, error);
     }
 
     public void increaseLogLayer() {

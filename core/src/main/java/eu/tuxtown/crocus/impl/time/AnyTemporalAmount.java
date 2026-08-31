@@ -1,6 +1,7 @@
 package eu.tuxtown.crocus.impl.time;
 
 import org.jetbrains.annotations.NotNullByDefault;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.Duration;
 import java.time.Period;
@@ -152,7 +153,7 @@ public class AnyTemporalAmount implements TemporalAmount {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || this.getClass() != o.getClass()) return false;
         AnyTemporalAmount that = (AnyTemporalAmount) o;

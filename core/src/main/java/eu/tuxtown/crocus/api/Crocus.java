@@ -35,11 +35,24 @@ public class Crocus {
     private Crocus() {}
 
     /**
+     * Log a debug message, which is only printed in verbose mode.
+     */
+    public static void debug(String message) {
+        @Nullable CrocusRuntime runtime = CrocusRuntime.maybe();
+        if (runtime != null && runtime.verbose()) {
+            Class<?> caller = getCallerClass();
+            runtime.logWithCaller(caller, message, false);
+        }
+    }
+
+    /**
      * Log an info message.
      */
     public static void info(String message) {
-        CrocusRuntime runtime = CrocusRuntime.get();
-        if (runtime.verbose()) {
+        @Nullable CrocusRuntime runtime = CrocusRuntime.maybe();
+        if (runtime == null) {
+            System.out.println(message);
+        } else if (runtime.verbose()) {
             Class<?> caller = getCallerClass();
             runtime.logWithCaller(caller, message, false);
         } else {
@@ -48,11 +61,13 @@ public class Crocus {
     }
 
     /**
-     * Log a debug message, which is only printed in verbose mode.
+     * Log an error message.
      */
-    public static void debug(String message) {
-        CrocusRuntime runtime = CrocusRuntime.get();
-        if (runtime.verbose()) {
+    public static void error(String message) {
+        @Nullable CrocusRuntime runtime = CrocusRuntime.maybe();
+        if (runtime == null) {
+            System.err.println(message);
+        } else if (runtime.verbose()) {
             Class<?> caller = getCallerClass();
             runtime.logWithCaller(caller, message, true);
         } else {

@@ -73,7 +73,7 @@ public class GoogleCalendar implements eu.tuxtown.crocus.api.calendar.Calendar {
                 .setSingleEvents(false));
 
         // Birthday calendars sometimes list the same event multiple times for mysterious reasons, even if
-        // singleEvents is turned off. Therefore we first collect all event ids and deduplicate them before
+        // singleEvents is turned off. Therefore, we first collect all event ids and deduplicate them before
         // deleting.
         Set<String> allEventIds = new HashSet<>();
         while (true) {
@@ -99,7 +99,7 @@ public class GoogleCalendar implements eu.tuxtown.crocus.api.calendar.Calendar {
         try (RequestExecutor.Batcher batcher = this.executor.newBatcher()) {
             for (String eventId : events) {
                 batcher.enqueue(HandledRequest.of(this.calendar.events().delete(this.calendarId, eventId))
-                        .failure(RequestExecutor.NOT_FOUND, err -> {})
+                        .failure(RequestExecutor.NOT_FOUND, _ -> {})
                 );
             }
         }

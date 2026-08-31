@@ -16,8 +16,8 @@ dependencies {
     implementation libs.gson
 }
 
-jar {
-    archiveBaseName = 'Crocus'
+tasks.withType(Jar).configureEach {
+    archiveBaseName = 'crocus'
 }
 
 tasks.named('distTar', Tar) {
