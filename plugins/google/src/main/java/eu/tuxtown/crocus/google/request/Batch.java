@@ -32,7 +32,10 @@ public class Batch {
         int attempt = 0;
         while (!nextBatch.isEmpty()) {
             attempt += 1;
-            BatchRequest batch = this.client.batch(ServerErrorRetryHandler.INITIALIZER);
+            BatchRequest batch = this.client.batch(req -> {
+                ServerErrorRetryHandler.INITIALIZER.initialize(req);
+                req.setReadTimeout(5 * req.getReadTimeout()); // batches may take a bit longer
+            });
             List<HandledRequest<?>> deferredRequests = new ArrayList<>();
             List<IOException> capturedExceptions = new ArrayList<>();
             for (HandledRequest<?> request : nextBatch) {

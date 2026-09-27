@@ -44,7 +44,7 @@ public class SimpleFilterConfig {
         this.outside = new ArrayList<>();
         this.timezone = ZoneId.systemDefault();
         this.attributes = new HashMap<>();
-        this.event = event -> true;
+        this.event = _ -> true;
     }
 
     public void when(DelegateConfiguration config) {
