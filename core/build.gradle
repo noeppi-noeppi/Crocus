@@ -5,6 +5,7 @@ plugins {
 bootstrap {
     applicationName = 'crocus'
     entrypoint = 'crocus'
+    jvmArgs.add('-Djava.net.preferIPv6Addresses=true')
 }
 
 dependencies {
