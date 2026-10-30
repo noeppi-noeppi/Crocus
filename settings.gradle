@@ -13,6 +13,7 @@ rootProject.name = 'Crocus'
 
 include ':core'
 include ':plugins:anniversary'
+include ':plugins:caldav'
 include ':plugins:filter'
 include ':plugins:google'
 include ':plugins:ical'

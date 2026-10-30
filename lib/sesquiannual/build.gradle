@@ -6,3 +6,7 @@ dependencies {
     api libs.annotations
     api libs.biweekly
 }
+
+dependencies.constraints {
+    api libs.jackson.core
+}

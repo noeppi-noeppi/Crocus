@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
 @NotNullByDefault
 public class ICalConfig {
 
-    @Nullable private Resource source;
+    private @Nullable Resource source;
     private Charset charset;
     private ZoneId timezone; // fallback timezone
     private TemporalAmount repeatFor; // From event start

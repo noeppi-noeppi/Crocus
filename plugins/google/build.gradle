@@ -6,6 +6,10 @@ dependencies {
     classpath libs.google.apis.people
 }
 
+dependencies.constraints {
+    classpath libs.gson
+}
+
 jar {
     manifest.attributes('Crocus-Layer-Isolation': true)
 }

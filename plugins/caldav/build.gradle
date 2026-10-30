@@ -1,0 +1,15 @@
+dependencies {
+    api project(':plugins:ical')
+    classpath project(':lib:sesquiannual')
+    classpath libs.sardine
+}
+
+dependencies.constraints {
+    classpath libs.jakarta.xml.bind
+    classpath libs.jakarta.activation
+    classpath libs.glassfish.jaxb.runtime
+}
+
+jar {
+    manifest.attributes('Crocus-Layer-Isolation': true)
+}
