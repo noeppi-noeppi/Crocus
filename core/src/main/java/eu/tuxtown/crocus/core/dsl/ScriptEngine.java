@@ -10,6 +10,7 @@ import eu.tuxtown.crocus.core.configuration.ConfiguredEventSource;
 import eu.tuxtown.crocus.core.configuration.ConfiguredService;
 import eu.tuxtown.crocus.core.configuration.SystemConfiguration;
 import eu.tuxtown.crocus.core.dsl.meta.metaclass.DslMetaClass;
+import eu.tuxtown.crocus.core.dsl.meta.metaclass.EventBuilderMetaClass;
 import eu.tuxtown.crocus.core.dsl.meta.metaclass.EventTimeMetaClass;
 import eu.tuxtown.crocus.core.loader.Services;
 import groovy.lang.*;
@@ -53,16 +54,22 @@ public class ScriptEngine {
             }
 
             MetaClassRegistry reg = GroovySystem.getMetaClassRegistry();
-            reg.setMetaClass(Event.EventTime.class, new EventTimeMetaClass(reg, Event.EventTime.class));
-            reg.setMetaClass(Event.EventTime.OpenEnd.class, new EventTimeMetaClass(reg, Event.EventTime.OpenEnd.class));
-            reg.setMetaClass(Event.EventTime.Timed.class, new EventTimeMetaClass(reg, Event.EventTime.Timed.class));
-            reg.setMetaClass(Event.EventTime.AllDay.class, new EventTimeMetaClass(reg, Event.EventTime.AllDay.class));
+            setMetaClass(reg, Event.EventTime.class, new EventTimeMetaClass(reg, Event.EventTime.class));
+            setMetaClass(reg, Event.EventTime.OpenEnd.class, new EventTimeMetaClass(reg, Event.EventTime.OpenEnd.class));
+            setMetaClass(reg, Event.EventTime.Timed.class, new EventTimeMetaClass(reg, Event.EventTime.Timed.class));
+            setMetaClass(reg, Event.EventTime.AllDay.class, new EventTimeMetaClass(reg, Event.EventTime.AllDay.class));
+            setMetaClass(reg, Event.Builder.class, new EventBuilderMetaClass(reg, Event.Builder.class));
             DslMetaClass.applyToClass(reg, Instant.class);
             DslMetaClass.applyToClass(reg, ZonedDateTime.class);
             DslMetaClass.applyToClass(reg, LocalDateTime.class);
             DslMetaClass.applyToClass(reg, LocalDate.class);
             initialised = true;
         }
+    }
+
+    private static void setMetaClass(MetaClassRegistry reg, Class<?> cls, MetaClass metaClass) {
+        metaClass.initialize();
+        reg.setMetaClass(cls, metaClass);
     }
 
     private static synchronized void checkInit() {
@@ -116,13 +123,13 @@ public class ScriptEngine {
         script.run();
     }
 
-    public static <T, D> T configure(DelegateConfigurable<T, D> configurable, Closure<?> config) {
+    public static <T, D> T configure(DelegateConfigurable<T, D> configurable, Closure<?> config, Object[] arguments) {
         checkInit();
         D delegate = configurable.createDelegate();
         DslMetaClass.applyTo(delegate);
         config.setDelegate(delegate);
         config.setResolveStrategy(Closure.DELEGATE_FIRST);
-        config.call();
+        config.call(arguments);
         return configurable.create(delegate);
     }
 

@@ -18,8 +18,8 @@ public final class DelegateConfigurationImpl implements DelegateConfiguration {
     }
 
     @Override
-    public <T> T configure(DelegateConfigurable<T, ?> configurable) {
-        return ScriptEngine.configure(configurable, this.closure);
+    public <T> T configure(DelegateConfigurable<T, ?> configurable, Object... arguments) {
+        return ScriptEngine.configure(configurable, this.closure, arguments);
     }
 
     @Override

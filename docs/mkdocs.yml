@@ -14,6 +14,7 @@ nav:
       - Core: plugins/core.md
       - Anniversary: plugins/anniversary.md
       - CalDAV: plugins/caldav.md
+      - CSV: plugins/csv.md
       - Filter: plugins/filter.md
       - Frab: plugins/frab.md
       - Google: plugins/google.md

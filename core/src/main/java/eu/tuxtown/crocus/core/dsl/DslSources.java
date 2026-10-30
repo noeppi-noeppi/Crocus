@@ -45,7 +45,7 @@ public class DslSources extends ServiceContainer<EventSourceType<?, ?>> {
             throw new IllegalStateException("Duplicate event source: " + name);
         }
 
-        EventSource source = ScriptEngine.configure(service.instance(), Objects.requireNonNullElse(dslSource.cfg, Closure.IDENTITY));
+        EventSource source = ScriptEngine.configure(service.instance(), Objects.requireNonNullElse(dslSource.cfg, Closure.IDENTITY), new Object[0]);
         this.sources.put(name, new ConfiguredService<>(service, name, new ConfiguredEventSource(source, dslSource.filterChain, dslSource.recipients)));
         return Void.class;
     }
@@ -71,7 +71,7 @@ public class DslSources extends ServiceContainer<EventSourceType<?, ?>> {
 
         public void filter(String typeId, Closure<?> cfg) {
             Services.Service<EventFilterType<?, ?>> service = DslSources.this.services.resolve(Crocus.ServiceDomain.EVENT_FILTER, typeId);
-            this.filterChain.add(ScriptEngine.configure(service.instance(), cfg));
+            this.filterChain.add(ScriptEngine.configure(service.instance(), cfg, new Object[0]));
         }
 
         public void into(String calendarName) {

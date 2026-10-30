@@ -25,7 +25,7 @@ public class DslCalendars extends ServiceContainer<CalendarType<?, ?>> {
         if (this.calendars.containsKey(name)) {
             throw new IllegalStateException("Duplicate calendar name: " + name);
         }
-        Calendar calendar = ScriptEngine.configure(service.instance(), config);
+        Calendar calendar = ScriptEngine.configure(service.instance(), config, new Object[0]);
         this.calendars.put(name, new ConfiguredService<>(service, calendar.id(), calendar));
         return Void.class;
     }

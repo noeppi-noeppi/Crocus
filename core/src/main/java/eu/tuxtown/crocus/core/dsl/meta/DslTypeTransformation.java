@@ -11,6 +11,7 @@ import eu.tuxtown.crocus.impl.resource.PathResource;
 import eu.tuxtown.crocus.impl.resource.UrlResource;
 import eu.tuxtown.crocus.impl.time.AnyTemporalAmount;
 import groovy.lang.Closure;
+import groovy.lang.GString;
 import org.codehaus.groovy.reflection.CachedClass;
 import org.codehaus.groovy.runtime.typehandling.DefaultTypeTransformation;
 import org.codehaus.groovy.runtime.typehandling.GroovyCastException;
@@ -77,6 +78,11 @@ public class DslTypeTransformation {
     public static @Nullable Object castToType(@Nullable Object object, Class<?> type) {
         if (object == null) return DefaultTypeTransformation.castToType(null, type);
         if (type.isAssignableFrom(object.getClass())) return object;
+
+        Object original = object;
+        if (object instanceof GString gstring) {
+            object = gstring.toString();
+        }
 
         if (type == DelegateConfiguration.class) {
             DelegateConfiguration delegateConfig = castToDelegateConfiguration(object);
@@ -163,7 +169,7 @@ public class DslTypeTransformation {
             if (enumConstant != null) return enumConstant;
         }
 
-        return DefaultTypeTransformation.castToType(object, type);
+        return DefaultTypeTransformation.castToType(original, type);
     }
 
     private static @Nullable DelegateConfiguration castToDelegateConfiguration(@Nullable Object object) {

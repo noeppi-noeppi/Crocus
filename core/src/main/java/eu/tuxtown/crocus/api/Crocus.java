@@ -7,6 +7,7 @@ import eu.tuxtown.crocus.api.service.EventSourceType;
 import eu.tuxtown.crocus.api.service.Nameable;
 import eu.tuxtown.crocus.core.CrocusRuntime;
 import eu.tuxtown.crocus.core.dsl.meta.metaclass.DslMetaClass;
+import eu.tuxtown.crocus.core.dsl.util.DynamicObject;
 import eu.tuxtown.crocus.core.loader.Services;
 import eu.tuxtown.crocus.impl.json.EventJson;
 import org.jetbrains.annotations.NotNullByDefault;
@@ -21,6 +22,7 @@ import java.nio.file.attribute.PosixFileAttributeView;
 import java.nio.file.attribute.PosixFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -154,6 +156,13 @@ public class Crocus {
      */
     public static void makeDslObject(Object object) {
         DslMetaClass.applyTo(object);
+    }
+
+    /**
+     * Creates an object that exposes the provided properties as object.property or object['property'] in the DSL.
+     */
+    public static Object makeDynamicObject(Map<String, ?> properties) {
+        return new DynamicObject(properties);
     }
 
     /**

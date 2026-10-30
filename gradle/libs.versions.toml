@@ -12,6 +12,7 @@ jakarta-xml-bind = '4.0.5'
 jakarta-activation = '2.1.4'
 glassfish-jaxb = '4.0.9'
 jackson = '2.22.4'
+fastcsv = '4.4.0'
 google-client-api = '2.9.0'
 google-client-oauth = '1.39.0'
 google-apis-calendar = 'v3-rev20260708-2.0.0'
@@ -36,6 +37,7 @@ jakarta-activation = { module = 'jakarta.activation:jakarta.activation-api', ver
 glassfish-jaxb-xjc = { module = 'org.glassfish.jaxb:jaxb-xjc', version.ref = 'glassfish-jaxb' }
 glassfish-jaxb-runtime = { module = 'org.glassfish.jaxb:jaxb-runtime', version.ref = 'glassfish-jaxb' }
 jackson-core = { module = 'com.fasterxml.jackson.core:jackson-core', version.ref = 'jackson' }
+fastcsv = { module = 'de.siegmar:fastcsv', version.ref = 'fastcsv' }
 google-client-api = { module = 'com.google.api-client:google-api-client', version.ref = 'google-client-api' }
 google-client-oauth = { module = 'com.google.oauth-client:google-oauth-client', version.ref = 'google-client-oauth' }
 google-client-oauth-jetty = { module = 'com.google.oauth-client:google-oauth-client-jetty', version.ref = 'google-client-oauth' }

@@ -14,7 +14,7 @@ public sealed interface DelegateConfiguration permits DelegateConfigurationImpl 
     /**
      * Applies this configuration to the provided {@link DelegateConfigurable configurable}.
      */
-    <T> T configure(DelegateConfigurable<T, ?> configurable);
+    <T> T configure(DelegateConfigurable<T, ?> configurable, Object... arguments);
 
     /**
      * Creates a new {@link DelegateConfiguration delegate configuration} that applies this configuration
